@@ -18,7 +18,6 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatListModule} from '@angular/material/list';
-import { MatTableExporterModule } from 'mat-table-exporter';
 import {MatButtonModule} from '@angular/material/button';
 import { ToastrModule } from 'ngx-toastr';
 
@@ -45,7 +44,6 @@ import { ToastrModule } from 'ngx-toastr';
     MatTooltipModule,
     MatToolbarModule,
     MatListModule,
-    MatTableExporterModule,
     MatButtonModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),

@@ -2,12 +2,6 @@
   <mat-toolbar color="primary">
     <div class="align-header">
       <h3>Country Capital</h3>
-      <span>
-        <button mat-raised-button (click)="exporter.exportTable('csv')">
-          <mat-icon aria-label="export to excel" mat-button>file_copy
-          </mat-icon>Export To Excel
-        </button>
-      </span>
     </div>
   </mat-toolbar>
 </p>
@@ -25,8 +19,7 @@
   <mat-form-field>
     <input matInput (keyup)="applyFilter($event)" placeholder="SEARCH..." #input>
   </mat-form-field>
-  <table mat-table matTableExporter [dataSource]="dataSource" class="mat-elevation-z8" #exporter="matTableExporter"
-    [hiddenColumns]="[getActionIndexValue()]" fileName="CountryCapital">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
     <ng-container matColumnDef="{{column}}" *ngFor="let column of displayedColumns;let colindex=index">
       <th mat-header-cell *matHeaderCellDef> <span>
