@@ -1,0 +1,129 @@
+<p>
+  <mat-toolbar color="primary">
+    <div class="align-header">
+      <h3>Country Capital</h3>
+      <span>
+        <button mat-raised-button (click)="exporter.exportTable('csv')">
+          <mat-icon aria-label="export to excel" mat-button>file_copy
+          </mat-icon>Export To Excel
+        </button>
+      </span>
+    </div>
+  </mat-toolbar>
+</p>
+
+
+<div class="mat-elevation-z8" class="padding">
+  <mat-menu #contextMenu="matMenu">
+    <ng-template matMenuContent let-item="item">
+      <button mat-menu-item (click)="addRow('above')">Add Row Above</button>
+      <button mat-menu-item (click)="addRow('below')">Add Row Below</button>
+      <button mat-menu-item (click)="openDialog('left')">Add Column Left</button>
+      <button mat-menu-item (click)="openDialog('right')">Add Column Right</button>
+    </ng-template>
+  </mat-menu>
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event)" placeholder="SEARCH..." #input>
+  </mat-form-field>
+  <table mat-table matTableExporter [dataSource]="dataSource" class="mat-elevation-z8" #exporter="matTableExporter"
+    [hiddenColumns]="[getActionIndexValue()]" fileName="CountryCapital">
+
+    <ng-container matColumnDef="{{column}}" *ngFor="let column of displayedColumns;let colindex=index">
+      <th mat-header-cell *matHeaderCellDef> <span>
+          <span class="align-columns">
+            <span>
+              <b>{{column | uppercase}}</b>
+            </span>
+            <span>
+
+            </span>
+          </span>
+
+
+
+        </span> </th>
+      <tr>
+        <td mat-cell *matCellDef="let element;let i = index;" (dblclick)="onEdit(i, column)"
+          (contextmenu)="onContextMenu($event,i,colindex)" class="cursor">
+
+          <span *ngIf="column== 'S.No'">{{i+1}}</span>
+          <span
+            *ngIf="column== 'Country' && (element.country=='' || element.country && this.editingState.row === i && this.editingState.column === colindex)">
+
+            <form class="example-form">
+              <mat-form-field class="example-full-width" (blur)="onBlurEvent()">
+                <mat-label>Country</mat-label>
+                <input type="text" [(ngModel)]="country[i]" (input)="searchData(country[i],'country')"
+                  placeholder="Pick one" aria-label="Country" matInput [formControl]="myControl"
+                  [matAutocomplete]="auto" (keyup.enter)="setData(country[i],i,'country')">
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="setData($event.option.value,i,'country')">
+                  <mat-option *ngFor="let option of options" [value]="option.country">
+                    {{option.country}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </form>
+          </span>
+          <span *ngIf="column == 'Country' && !(this.editingState.row === i && this.editingState.column === colindex)">
+            {{element.country}}
+          </span>
+          <span
+            *ngIf="column== 'City'&& (element.city=='' || this.editingState.row === i && this.editingState.column === colindex)">
+            <form class="example-form">
+              <mat-form-field class="example-full-width" (blur)="onBlurEvent()">
+                <mat-label>City</mat-label>
+                <input type="text" [(ngModel)]="city[i]" (input)="searchData(city[i],'city')" placeholder="Pick one"
+                  aria-label="City" matInput [formControl]="myControl" [matAutocomplete]="auto"
+                  (keyup.enter)="setData(city[i],i,'city')">
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="setData($event.option.value,i,'city')">
+                  <mat-option *ngFor="let option of options" [value]="option.city">
+                    {{option.city}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </form>
+          </span>
+          <span *ngIf="column== 'City' && !(this.editingState.row === i && this.editingState.column === colindex)">
+            {{element.city}}
+          </span>
+          <span *ngIf="!['City','Country','S.No', 'Actions'].includes(column)">
+            <span *ngIf=" this.editingState.row === i && this.editingState.column === colindex">
+              <form class="example-form">
+                <mat-form-field class="example-full-width" (blur)="onBlurEvent()">
+                  <input type="text" [(ngModel)]="element[column]" matInput [formControl]="myControl"
+                    (blur)="onBlurEvent()" />
+                </mat-form-field>
+              </form>
+            </span>
+            <span *ngIf="!(this.editingState.row === i && this.editingState.column === colindex)">
+              {{element[column]}}
+
+            </span>
+          </span>
+
+
+
+
+          <span *ngIf="column== 'Actions'">
+            <mat-icon aria-label="Delete" (click)="deleteItem(i, element.country, element.city)" class="red cursor"
+              matTooltip="Delete Row">cancel
+            </mat-icon>
+            <div class="menu-visiblity" [style.left]="contextMenuPosition.x" [style.top]="contextMenuPosition.y"
+              [matMenuTriggerFor]="contextMenu">
+            </div>
+
+
+          </span>
+          <span>
+          </span>
+
+        </td>
+      </tr>
+
+
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>

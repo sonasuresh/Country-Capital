@@ -1,0 +1,36 @@
+table {
+    width: 100%;
+  }
+  .example-form {
+    min-width: 100px;
+    max-width: 2500px;
+    width: 50%;
+  }
+  
+  .example-full-width {
+    width: 70%;
+  }
+  .contextmenu{
+    position: absolute;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+}
+
+.float-right{
+  float: right;
+}
+
+.padding{
+  padding: 40px;
+}
+.menu-visiblity{
+  visibility: hidden;
+  position: fixed
+}
+.align-columns{
+  display: flex;
+  align-items: center
+}
+
+
+
+
