@@ -175,6 +175,9 @@ export class HomeComponent implements OnInit {
     return this.displayedColumns.findIndex(col => col === 'Actions');
 
   }
+  deleteColumn(colIndex:number){
+    this.displayedColumns.splice(colIndex, 1);
+  }
 }
 
 

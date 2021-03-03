@@ -24,8 +24,16 @@
     <ng-container matColumnDef="{{column}}" *ngFor="let column of displayedColumns;let colindex=index">
       <th mat-header-cell *matHeaderCellDef> <span>
           <span class="align-columns">
-            <span>
-              <b>{{column | uppercase}}</b>
+            <span style="display: flex; flex-direction: row;">
+              <div>
+                <b>{{column | uppercase}}</b>
+              </div>
+              <div>
+                <mat-icon *ngIf="!['City','Country','S.No', 'Actions'].includes(column)" aria-label="Delete" class="cursor" (click)="deleteColumn(colindex)"
+                >delete
+              </mat-icon>
+              </div>
+             
             </span>
             <span>
 
